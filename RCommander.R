@@ -6,7 +6,7 @@ require(Rcmdr)
 rladies <- 
   readXL("C:/Users/jorge/Desktop/Estatística - UFF/Pojeto - Estatística é com R/R Commander/Apresentação - Oficial/R-Ladies (rladies).xlsx",
          rownames=TRUE, header=TRUE, na="", sheet="Plan1", stringsAsFactors=TRUE)
-save("Bussab", file="C:/Users/jorge/Desktop/Bussab.RData")
+save("rladies", file="C:/Users/jorge/Desktop/Bussab.RData")
 rladies <- within(rladies, {
   Casado_ <- factor(Casado, labels=c('Solteiro','Casado'))
 })
