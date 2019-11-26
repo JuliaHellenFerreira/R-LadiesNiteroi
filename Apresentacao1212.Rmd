@@ -1,0 +1,50 @@
+---
+title: "O desenvolvimento do R Ladies Niterói em 2019"
+subtitle: ""
+author: "Julia Ferreira, Juliany Moura, Maciela Rodrigues e Luíza Pinto"
+institute: "Universidade Federal Fluminense"
+date: "12/12/2019"
+output:
+  xaringan::moon_reader:
+    css: [kunoichi, ninjutsu, rladies-fonts]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+background-image: url(https://github.com/JuliaHellenFerreira/R-LadiesNiteroi/blob/master/Rladiesnietroi.jfif?raw=true)
+
+---
+
+class: inverse, center, middle
+
+# O que fizmos ao longo do ano?
+
+---
+
+class: center, middle
+
+## Em fevereiro, tivemos nosso primeiro encontro. Recebemos a aluna recém formada no curso de estatística Camila Simões que apresentou " Descobrindo o Shiny: Como tornar sua visualização de dados mais atraente?". Também tivemos uma apresentação com a aluna Julia Ferreira que mostrou mais funções do R Commander com a palestra "Exercitando o R Commander".
+
+---
+
+class: center, middle
+
+## No mês de maio, partipamos da agenda do Seminário Internacional Estatística é com R (SER). Tivemos a presença da Beatriz Milz e Haydee Svab, que são R Ladies São Paulo, no qual a apresentaram o tema "Comunicando seus resultados: criando apresentações com R".
+
+---
+
+class: center, middle
+
+## Já no segundo semestre do ano fechamos uma parceria com a Biblioteca Parque de Niterói. No dia 20 de setembro, realizamos uma palestra intitulada como "Análise das bilheterias mundiais do cinema usando o R" e na semana seguinte ofertamos um minicurso "Introdução a Linguagem R".
+
+---
+class: inverse, center, middle
+
+# Metas para 2020
+
+---
+
+
