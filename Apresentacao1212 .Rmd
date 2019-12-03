@@ -1,0 +1,93 @@
+---
+title: "O desenvolvimento do R Ladies Niterói em 2019"
+subtitle: ""
+author: "Julia Ferreira, Juliany Moura, Maciela Rodrigues e Luíza Pinto"
+institute: "Universidade Federal Fluminense"
+date: "12/12/2019"
+output:
+  xaringan::moon_reader:
+    css: [kunoichi, ninjutsu, rladies-fonts]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+background-image: url(https://github.com/JuliaHellenFerreira/R-LadiesNiteroi/blob/master/Rladiesnietroi.jfif?raw=true)
+
+---
+
+class: inverse, center, middle
+
+# O que fizemos ao longo do ano?
+
+---
+
+class: center, middle
+
+## Em fevereiro, tivemos nosso primeiro encontro. Recebemos a aluna recém formada no curso de estatística Camila Simões que apresentou "Descobrindo o Shiny: Como tornar sua visualização de dados mais atraente?". Também tivemos uma apresentação com a aluna Julia Ferreira que mostrou mais funções do R Commander com a palestra "Exercitando o R Commander".
+
+---
+
+background-image: url(https://scontent-gig2-1.xx.fbcdn.net/v/t1.0-9/78568493_2450765458513501_1879674355282083840_n.jpg?_nc_cat=102&_nc_ohc=anrKdjnVZIUAQl0NBvT5nMDDpppiDgKISzaSyK3P_oy4o9d8-CIbxhmAg&_nc_ht=scontent-gig2-1.xx&oh=f1953f62cb1ad72aa5f87853117f39e3&oe=5E4099F6)
+
+---
+
+background-image: url(https://scontent-gig2-1.xx.fbcdn.net/v/t1.0-9/78321652_2450765488513498_9103133735913521152_n.jpg?_nc_cat=106&_nc_ohc=pMvXugof0TAAQl392c6milkec4UcPA5NvIdXmsKsYNnlLHQpjtlIa40cQ&_nc_ht=scontent-gig2-1.xx&oh=e35f60e6b7ca9683dca97f773cc88a1e&oe=5E45F28E)
+
+---
+background-image: url(https://scontent-gig2-1.xx.fbcdn.net/v/t1.0-9/78136631_2450765465180167_611955826621415424_n.jpg?_nc_cat=103&_nc_ohc=9sU8rScn5dIAQmA9o87H22MS-Kc3oDwklSoZrM0NOfoDNYBuAno6AEQQg&_nc_ht=scontent-gig2-1.xx&oh=fd9e982fb7a9e43baec7869f67b7f6cc&oe=5E73EDFF)
+
+---
+
+class: center, middle
+
+## No mês de maio, participamos da agenda do Seminário Internacional Estatística com R (SER). Tivemos a presença da Beatriz Milz e Haydee Svab, R Ladies São Paulo, que apresentaram o tema "Comunicando seus resultados: criando apresentações com R".
+
+---
+
+background-image: url(https://scontent-gig2-1.xx.fbcdn.net/v/t1.0-9/s960x960/77420501_2450765528513494_2347072144044720128_o.jpg?_nc_cat=108&_nc_ohc=Pau7JCEIniwAQmAPhrkDm9k0F-LCvcFHUSRAchvAptmy98suMF_X7IG-Q&_nc_ht=scontent-gig2-1.xx&oh=07fee13192d8fdba449bf4b9a05ed4e6&oe=5E7710BE)
+
+---
+
+background-image: url(https://scontent-gig2-1.xx.fbcdn.net/v/t1.0-9/s960x960/78635937_2450765551846825_194977934551810048_o.jpg?_nc_cat=104&_nc_ohc=dYWtpFydxWkAQnwzjcMcL3ZkjXnDBR9R_Z7eb0Qe9AUXKypqeBc4Q1LGA&_nc_ht=scontent-gig2-1.xx&oh=4fce692ebd41148af302060078f9e4fd&oe=5E88462E)
+
+---
+
+background-image: url(https://scontent-gig2-1.xx.fbcdn.net/v/t1.0-9/79173308_2450765545180159_255385519993651200_n.jpg?_nc_cat=102&_nc_ohc=ypzuIe5Xf-QAQk1CxfcgjUx7S3bHt27vfW-lVSAFw23pbZln9EX6v6_0w&_nc_ht=scontent-gig2-1.xx&oh=3bd96cc631ab6bd3cc52cfc1c5a7004c&oe=5E89DAC7)
+
+---
+
+class: center, middle
+
+## Já no segundo semestre do ano fechamos uma parceria com a Biblioteca Parque de Niterói. No dia 20 de setembro, realizamos uma palestra intitulada como "Análise das bilheterias mundiais do cinema usando o R" e na semana seguinte ofertamos um minicurso "Introdução a Linguagem R".
+
+---
+
+background-image: url(https://scontent-gig2-1.xx.fbcdn.net/v/t1.0-9/75534746_2450765791846801_1072290198068396032_n.jpg?_nc_cat=101&_nc_ohc=QXZHM9V-3K0AQlLR_nE2vXVHjChaO5ISjJhmrVRFIcWr5sqtqheVNY6sg&_nc_ht=scontent-gig2-1.xx&oh=029378385b38f74c2c195faa0ffc28dc&oe=5E72BB9E)
+
+---
+
+background-image: url(https://scontent-gig2-1.xx.fbcdn.net/v/t1.0-9/78919200_2450765945180119_3656223968806830080_n.jpg?_nc_cat=102&_nc_ohc=QeCK6XZBvc8AQlYxnfkJnZggAmCySMZaKsbQP7kt9BgCbbhxbshhpONOQ&_nc_ht=scontent-gig2-1.xx&oh=c716819abb39bdbd0f869ead8abb2e73&oe=5E7D001D)
+
+---
+
+class: inverse, center, middle
+
+# Metas para 2020
+
+---
+
+class: inverse, middle, center
+
+## - Aumentar o número de capítulos;
+
+## - Produzir uma apostila de R Básico;
+
+## - Parcerias com escolas e outras instituições;
+
+## - Elaboração de vídeoaulas - "Estatística é com R";
+
+
+
