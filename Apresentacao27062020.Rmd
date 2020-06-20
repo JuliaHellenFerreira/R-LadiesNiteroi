@@ -1,0 +1,182 @@
+---
+title: "R Ladies Niterói apresenta:"
+subtitle: "Introdução ao Pacote  Dplyr"
+author: "Julia Hellen Ferreira"
+institute: "Facilitadora"
+date: "27 de junho de 2020"
+output:
+  xaringan::moon_reader:
+    css: [metropolis, metropolis-fonts]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+# Facilitadora
+  Julia Hellen Ferreira 
+* Estudante de Estatística
+
+---
+# R Ladies Niterói
+
+Começou
+
+---
+
+# Código de Conduta
+
+---
+
+# Como será o capítulo
+
+---
+
+# Pacote Dplyr
+
+---
+
+# Banco de Dados
+
+
+
+## Código:
+
+```{r}
+
+library(dplyr)
+data <- starwars # setup as tibble
+
+```
+
+---
+
+# Banco de Dados
+
+```{r}
+
+head(starwars, 15)
+
+```
+
+
+
+---
+
+# Operador *Pipe* %>% 
+
+---
+
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+
+# Função: select()
+
+```{r, eucho = TRUE}
+
+1 + 2
+
+```
+
+---
+
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+
+# Exercício 1: select()
+
+---
+
+# Função: filter()
+
+---
+
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+
+# Exercício 2: filter()
+
+---
+
+# Função: mutate()
+
+---
+
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+
+# Exercício 3: mutate()
+
+---
+
+# Função: arrange()
+
+---
+
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+
+# Exercício 4: arrange()
+
+---
+
+# Função: summarise()
+
+---
+
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+
+# Exercício 5: summarise()
+
+---
+
+# Função: group_by()
+
+---
+
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+
+# Exercício 6: group_by()
+
+---
+
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+
+# Exercício Final
+
+---
+
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+
+# Encerramento
