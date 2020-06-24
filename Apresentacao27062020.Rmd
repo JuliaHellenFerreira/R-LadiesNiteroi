@@ -1,8 +1,8 @@
 ---
 title: "R Ladies Niterói apresenta:"
-subtitle: "Introdução ao Pacote  Dplyr"
+subtitle: "Introdução ao Pacote Dplyr"
 author: "Julia Hellen Ferreira"
-institute: "Facilitadora"
+institute: ""
 date: "27 de junho de 2020"
 output:
   xaringan::moon_reader:
@@ -12,58 +12,143 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+  
 ---
-# Facilitadora
-  Julia Hellen Ferreira 
-* Estudante de Estatística
+# Facilitadora: Julia Hellen Ferreira 
+
+* Co-organizadora do R Ladies Niterói; 
+
+* Acadêmica de Estatística na Universidade Federal Fluminense (UFF);
+
+* Faço parte do projeto: GET UFF contra o Covid-19;
+
+* Comecei a estudar o R no final de 2017;
+
+* Além do R, estudo python e SQL;
+
+* Amo ver filmes e  series. Também gosto muito de ler;
+
+* Fã de Star Wars.
+
+<center>
+
+<img src="Julia.png" width="200" >
+
+</center>
 
 ---
 # R Ladies Niterói
 
-Começou
+* R-Ladies Niterói é uma organização mundial cuja missão é promover a diversidade de gênero na comunidade da linguagem R;
+
+* O primeiro encontro foi dia 30 de agosto de 2018;
+
+* Cada encontro é chamado de capítulo;
+
+* Já realizamos 7 capítulos até hoje;
+
+* Organizadoras: Juliany Moura, Julia Ferreira, Luciane Alcoforado, Luiza Oliveira e  Maciela Rodrigues;
+
+* Nosso é objetivo ter 4 capítulos por semestre. Devido a pandemia do **Covid-19** todos os encontros de 2020 serão onlines.
+
+<center>
+
+<img src="Rladiesnietroi.png" width="200" >
+
+</center>
 
 ---
 
 # Código de Conduta
 
+
+"O R Ladies dedica-se a proporcionar uma experiência livre de assédio para todas as pessoas participantes, desta forma, não é tolerada nenhuma forma de assédio."
+
+"Se você for assediado por um membro / convidado / participante de / em algum evento R-Ladies, ou ainda observe que alguém esteja sob assédio ou tem outras dúvidas, entre em contato com os Membros Fundadores através de reporting [at] rladies [dot] org. As incidências locais serão tratadas juntamente com os organizadores locais. Se a pessoa que está assediando você estiver na equipe, ela não participará da resolução do seu incidente. Responderemos o mais rápido possível."
+
+[Código de Conduta - R Ladies Niterói](https://github.com/rladies/starter-kit/wiki/Code-of-Conduct#portuguese)
+
+<center>
+
+<img src="Rladiesnietroi.png" width="200" >
+
+</center>
+
 ---
 
-# Como será o capítulo
+# Como será o capítulo?
+
+Como este é o nosso primeiro capítulo online, vamos testar algumas formas de ensino:
+
+- Encontro expositivo;
+
+- Apostila com teoria e exercícios sobre o **Dplyr** para auxiliar o estudo do pacote;
+
+- Usaremos dois banco de dados: Star Wars e babies.
+
+- Caso, tenha algum problema tentaremos ajudar durante a seção de dúvidas. Se não der tempo, pedimos que nos envie o problema durante a semana que vamos ajudar a resolver.
+
+- A cada função teremos uma seção para: **definição**, **exemplo**, **dúvidas ** e **exercício**.
+
+-  No final, vamos resolver um problema que reúne todas as 6 funções.
 
 ---
 
 # Pacote Dplyr
 
+Para falar do Dplyr precisamos antes falar do pacote **Tidyverse**
+
+<center>
+
+<img src="manipula.png" width="500" >
+
+</center>
+
 ---
 
 # Banco de Dados
 
+Como uma boa fã de Star Wars, eu escolhi um banco de dados que reúne as seguintes informações do universo Star Wars: **name**, **height(cm)**, **mass(kg)**, **hair_color**, **skin_color**, **eye_color**, **birth_year**, **sex**, **gender**, **homeworld**, **species**, **films**, **vehicles** e **starshipd**.
 
-
-## Código:
+### Código:
 
 ```{r}
-
 library(dplyr)
-data <- starwars # setup as tibble
-
+starwars
 ```
 
 ---
-
 # Banco de Dados
 
+### Código
+
 ```{r}
-
-head(starwars, 15)
-
+class(starwars)
 ```
-
-
 
 ---
 
 # Operador *Pipe* %>% 
+
+### Código sem o operador:
+
+Queremos visualizar as 15 primeiras observações do banco de dados:
+
+```{r}
+head(starwars, 10)
+```
+
+---
+# Operador *Pipe* %>% 
+
+O atalho é **Ctrl + Shift + M**.
+
+### Código com o operador:
+
+```{r}
+starwars %>% 
+  head(10)
+```
 
 ---
 
@@ -75,10 +160,22 @@ class: inverse, center, middle
 
 # Função: select()
 
-```{r, eucho = TRUE}
+### Código
 
-1 + 2
+```{r, echo = TRUE}
+starwars %>% 
+  select(name, species, homeworld)
+```
 
+---
+
+# Função: select()
+
+### Código - Organizando as colunas
+
+```{r, echo = TRUE}
+starwars %>% 
+  select(name, species, gender, everything())
 ```
 
 ---
@@ -91,9 +188,52 @@ class: inverse, center, middle
 
 # Exercício 1: select()
 
+Selecione as colunas: **name**, **hair_color** e **eye_color**.
+
+---
+# Exercício 1: select() - Resolução
+
+- Selecione as colunas: **name**, **hair_color** e **eye_color**:
+
+### Código
+
+```{r}
+starwars %>% 
+  select(name, hair_color, skin_color, eye_color)
+```
+
 ---
 
 # Função: filter()
+
+### Código:
+
+```{r}
+starwars %>% 
+  filter(mass > 50)
+```
+
+---
+
+# Função: filter()
+
+### Código:
+
+```{r}
+starwars %>% 
+  filter(mass < 50)
+```
+
+---
+
+# Função: filter()
+
+### Código:
+
+```{r}
+starwars %>% 
+  filter(mass >= 50 & mass <= 100)
+```
 
 ---
 
@@ -102,12 +242,40 @@ class: inverse, center, middle
 # Dúvidas
 
 ---
-
 # Exercício 2: filter()
+
+Filtre as linhas que a **mass** é maior ou igual 203.
+
+---
+
+# Exercício 2: filter() - Resolução
+
+- Filtre as linhas que a **mass** é maior ou igual 203:
+
+### Código
+
+```{r}
+starwars %>% 
+  filter(mass >= 203)
+```
 
 ---
 
 # Função: mutate()
+
+```{r}
+starwars <- starwars %>% 
+  mutate(heightM = height / 100)
+
+starwars
+```
+---
+# Função: mutate()
+
+```{r}
+starwars$heightM %>% 
+  head(87)
+```
 
 ---
 
@@ -119,9 +287,46 @@ class: inverse, center, middle
 
 # Exercício 3: mutate()
 
+Crie uma coluna com o calculo de IMC.
+
+Fórmula: 
+
+IMC = Mass/(heightM**2)
+
+---
+
+# Exercício 3: mutate() - Resolução
+
+- Crie uma coluna com o calculo de IMC:
+
+### Código
+
+```{r}
+starwars %>% 
+  mutate(imc = mass/(heightM**2)) %>% 
+  select(name, imc)
+```
+
 ---
 
 # Função: arrange()
+
+## Código - Ordem crescente
+```{r}
+starwars %>% 
+  arrange(height)
+```
+
+---
+
+# Função: arrange()
+
+## Código - Ordem decrescente
+
+```{r}
+starwars %>% 
+  arrange(desc(height))
+```
 
 ---
 
@@ -133,9 +338,29 @@ class: inverse, center, middle
 
 # Exercício 4: arrange()
 
+Coloque a coluna **mass** em ordem decrescente.
+
+---
+# Exercício 4: arrange() - Resolução
+
+- Coloque a coluna **mass** em ordem decrescente.
+
+## Código:
+
+```{r}
+starwars %>% 
+  arrange(desc(mass))
+```
+
+
 ---
 
 # Função: summarise()
+
+```{r}
+
+```
+
 
 ---
 
@@ -151,6 +376,20 @@ class: inverse, center, middle
 
 # Função: group_by()
 
+```{r}
+starwars %>%
+  group_by(species) %>%
+  summarise(
+    n = n(),
+    mass = mean(mass, na.rm = TRUE)
+  ) %>%
+  filter(
+    n > 1,
+    mass > 50
+  )
+```
+
+
 ---
 
 class: inverse, center, middle
@@ -161,6 +400,10 @@ class: inverse, center, middle
 
 # Exercício 6: group_by()
 
+```{r}
+
+```
+
 ---
 
 class: inverse, center, middle
@@ -170,6 +413,7 @@ class: inverse, center, middle
 ---
 
 # Exercício Final
+
 
 ---
 
