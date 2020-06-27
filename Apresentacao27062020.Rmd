@@ -26,7 +26,7 @@ output:
 
 * Além do R, estudo python e SQL;
 
-* Amo ver filmes e  series. Também gosto muito de ler;
+* Amo ver filmes, series e ler;
 
 * Fã de Star Wars.
 
@@ -41,15 +41,15 @@ output:
 
 * R-Ladies Niterói é uma organização mundial cuja missão é promover a diversidade de gênero na comunidade da linguagem R;
 
-* O primeiro encontro foi dia 30 de agosto de 2018;
+* O primeiro encontro foi no  dia 30 de agosto de 2018;
 
 * Cada encontro é chamado de capítulo;
 
 * Já realizamos 7 capítulos até hoje;
 
-* Organizadoras: Juliany Moura, Julia Ferreira, Luciane Alcoforado, Luiza Oliveira e  Maciela Rodrigues;
+* Organizadoras: Gabriela Barros, Juliany Moura, Julia Ferreira, Luciane Alcoforado, Luiza Oliveira e  Maciela Rodrigues;
 
-* Nosso é objetivo ter 4 capítulos por semestre. Devido a pandemia do **Covid-19** todos os encontros de 2020 serão onlines.
+* Nosso objetivo é termos 4 capítulos por semestre. Devido a pandemia do **Covid-19** todos os encontros de 2020 serão onlines.
 
 <center>
 
@@ -60,7 +60,6 @@ output:
 ---
 
 # Código de Conduta
-
 
 "O R Ladies dedica-se a proporcionar uma experiência livre de assédio para todas as pessoas participantes, desta forma, não é tolerada nenhuma forma de assédio."
 
@@ -82,25 +81,25 @@ Como este é o nosso primeiro capítulo online, vamos testar algumas formas de e
 
 - Encontro expositivo;
 
+- Pedimos que desliguem os microfones;
+
 - Apostila com teoria e exercícios sobre o **Dplyr** para auxiliar o estudo do pacote;
 
-- Usaremos dois banco de dados: Star Wars e babies.
+- Usaremos o banco de dados: Star Wars.
 
 - Caso, tenha algum problema tentaremos ajudar durante a seção de dúvidas. Se não der tempo, pedimos que nos envie o problema durante a semana que vamos ajudar a resolver.
 
 - A cada função teremos uma seção para: **definição**, **exemplo**, **dúvidas ** e **exercício**.
 
--  No final, vamos resolver um problema que reúne todas as 6 funções.
-
 ---
 
 # Pacote Dplyr
 
-Para falar do Dplyr precisamos antes falar do pacote **Tidyverse**
+O Dplyr foi desenvolvido pelo Hadley Wickham. O pacote veio para facilitar o uso de funcionalidades já existentes no R. Sendo assim, fazer as análises de dados de *data frame* se tornou mais simples e muitas vezes com poucas linhas de comando. 
 
 <center>
 
-<img src="manipula.png" width="500" >
+<img src="autor.png" width="600" >
 
 </center>
 
@@ -120,15 +119,25 @@ starwars
 ---
 # Banco de Dados
 
+Para começar nossa análise iremos verificar a classe do nosso banco de dados. Para isso faremos o seguinte comando:
+
 ### Código
 
 ```{r}
 class(starwars)
 ```
 
+Podemos ver que o banco de dados é uma tibble. O que seria um *tibble*? Vamos usar a definição que o *Curso-R* deu para enteder melhor:
+
+*"Uma tibble nada mais é do que um data.frame, mas com um método de impressão mais adequado."* [Curso-R](https://material.curso-r.com/manip/)
+
+Agora, sabemos que nosso banco de dados é uma tibble e podemos usar o pacote Dyplyr para realizar nossas análises.
+
 ---
 
 # Operador *Pipe* %>% 
+
+Para que nossas linhas de comando fiquem mais organizada e realizar várias funções de uma só vez podemos usar o operador *Pipe*. E para entender o operador *Pipe* vamos ver como fazemos sem ele:
 
 ### Código sem o operador:
 
@@ -141,7 +150,10 @@ head(starwars, 10)
 ---
 # Operador *Pipe* %>% 
 
-O atalho é **Ctrl + Shift + M**.
+Agora, precisamos compreender como o operador facilita muito a análise. Antes era preciso colocar o nome da base de dados como argumento da função. 
+Com o operador isso não é mais preciso porque o operador irá "acrescentar" este argumento automaticamente. Porém o *Pipe* faz muito mais que isso e vamos ver nos próximos slides.
+
+- O atalho é **Ctrl + Shift + M**.
 
 ### Código com o operador:
 
@@ -160,6 +172,8 @@ class: inverse, center, middle
 
 # Função: select()
 
+A primeira função que vamos estudar é o *select()*. Esta função irá *selecionar* as colunas do banco de dados que você colocou como argumento. Vejamos o exemplo a seguir:
+
 ### Código
 
 ```{r, echo = TRUE}
@@ -170,6 +184,8 @@ starwars %>%
 ---
 
 # Função: select()
+
+Na função *select()*, podemos usar outra função que é *everything()* que irá nos ajudar a organizar as colunas.
 
 ### Código - Organizando as colunas
 
@@ -190,6 +206,12 @@ class: inverse, center, middle
 
 Selecione as colunas: **name**, **hair_color** e **eye_color**.
 
+<center>
+
+<img src="figura03.png" width="700" >
+
+</center>
+
 ---
 # Exercício 1: select() - Resolução
 
@@ -205,6 +227,8 @@ starwars %>%
 ---
 
 # Função: filter()
+
+Sem dúvidas a função *filter()* é uma das mais importantes deste pacote. Usamos para filtrar as linhas de um banco de dados em relação a algum critério. Vamos ver os seguintes exemplos:
 
 ### Código:
 
@@ -244,7 +268,13 @@ class: inverse, center, middle
 ---
 # Exercício 2: filter()
 
-Filtre as linhas que a **mass** é maior ou igual 203.
+- Filtre as linhas que a **mass** é maior ou igual 203.
+
+<center>
+
+<img src="figura03.png" width="700" >
+
+</center>
 
 ---
 
@@ -263,17 +293,21 @@ starwars %>%
 
 # Função: mutate()
 
+A função *mutate()* irá adicionar uma nova coluna ou mais no final da sua base de dados. A função possibilita a realização de cáculos e os seus resultados irão ocupar as linhas de nova coluna.
+
 ```{r}
-starwars <- starwars %>% 
+data <- starwars %>% 
   mutate(heightM = height / 100)
 
-starwars
+data
 ```
 ---
 # Função: mutate()
 
+Agora, temos a coluna *heightM* com a média das alturas dos personagens. Podemos ver o resultado do mutante a seguir:
+
 ```{r}
-starwars$heightM %>% 
+data$heightM %>% 
   head(87)
 ```
 
@@ -287,11 +321,17 @@ class: inverse, center, middle
 
 # Exercício 3: mutate()
 
-Crie uma coluna com o calculo de IMC.
+- Crie uma coluna com o calculo de IMC.
 
-Fórmula: 
+                                     Fórmula: 
 
-IMC = Mass/(heightM**2)
+                               IMC = Mass/(heightM**2)
+                               
+<center>
+
+<img src="figura03.png" width="700" >
+
+</center>
 
 ---
 
@@ -302,7 +342,7 @@ IMC = Mass/(heightM**2)
 ### Código
 
 ```{r}
-starwars %>% 
+data %>% 
   mutate(imc = mass/(heightM**2)) %>% 
   select(name, imc)
 ```
@@ -310,6 +350,8 @@ starwars %>%
 ---
 
 # Função: arrange()
+
+A função arrange() irá reoordenar as linhas da base de dados conforme a variável escolhida. Podemos reoordenar de forma crescente e decrescente. Para fazer crescente basta usar a função *arrange()* e para fazer decrescente basta fazer *arrange(desc())*.
 
 ## Código - Ordem crescente
 ```{r}
@@ -338,7 +380,13 @@ class: inverse, center, middle
 
 # Exercício 4: arrange()
 
-Coloque a coluna **mass** em ordem decrescente.
+- Coloque a coluna **mass** em ordem decrescente.
+
+<center>
+
+<img src="figura03.png" width="700" >
+
+</center>
 
 ---
 # Exercício 4: arrange() - Resolução
@@ -352,15 +400,16 @@ starwars %>%
   arrange(desc(mass))
 ```
 
-
 ---
 
 # Função: summarise()
 
+Esta função irá criar uma ou mais medidas de resumos da variável escolhida. Para entender melhor vamos fazer um exemplo:
+
 ```{r}
-
+starwars %>% 
+  summarise(height.mean = mean(height, na.rm = T))
 ```
-
 
 ---
 
@@ -372,15 +421,34 @@ class: inverse, center, middle
 
 # Exercício 5: summarise()
 
+- Qual a média da variável *mass* ?
+
+<center>
+
+<img src="figura03.png" width="700" >
+
+</center>
+
+---
+
+# Exercício 5: summarise() - Resolução
+
+```{r}
+starwars %>% 
+  summarise(mass.mean = mean(mass, na.rm = T))
+```
+
 ---
 
 # Função: group_by()
+
+Por fim, temos a função *group_by()* que irá agrupar o banco de dados em relação a uma variável. Neste exemplo iremos usar em conjunto com outras funções.
 
 ```{r}
 starwars %>%
   group_by(species) %>%
   summarise(
-    n = n(),
+    n = n(), # fornece o tamanho atual do grupo
     mass = mean(mass, na.rm = TRUE)
   ) %>%
   filter(
@@ -400,8 +468,29 @@ class: inverse, center, middle
 
 # Exercício 6: group_by()
 
-```{r}
+- Agrupe por **species** e faça a média da altura.
 
+<center>
+
+<img src="figura03.png" width="700" >
+
+</center>
+
+---
+
+# Exercício 6: group_by() - Resolução
+
+```{r}
+starwars %>%
+  group_by(species) %>%
+  summarise(
+    n = n(),
+    heightM = mean(height, na.rm = TRUE)
+  ) %>%
+  filter(
+    n > 1,
+    heightM < 1.50
+  )
 ```
 
 ---
@@ -412,15 +501,21 @@ class: inverse, center, middle
 
 ---
 
-# Exercício Final
-
-
----
-
-class: inverse, center, middle
-
-# Dúvidas
-
----
-
 # Encerramento
+
+- Fonte: 
+
+*R para Data Science* -> Hadley Wickham & Garrett Gorlemund;
+
+*Professora: Karina Yaginuma* -> Universidade Federal Fluminense;
+
+*Estatística é com R* -> Canal do YouTube
+
+                         Agradecemos a participação de todos!
+
+<center>
+
+<img src="Rladiesnietroi.png" width="200" >
+
+</center>
+
