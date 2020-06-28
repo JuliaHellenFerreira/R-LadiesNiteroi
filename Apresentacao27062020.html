@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>R Ladies Niterói apresenta:</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Julia Hellen Ferreira" />
+    <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# R Ladies Niterói apresenta:
+## Introdução ao Pacote Dplyr
+### Julia Hellen Ferreira
+### 27 de junho de 2020
+
+---
+
+# Facilitadora: Julia Hellen Ferreira 
+
+* Co-organizadora do R Ladies Niterói; 
+
+* Acadêmica de Estatística na Universidade Federal Fluminense (UFF);
+
+* Faço parte do projeto: GET UFF contra o Covid-19;
+
+* Comecei a estudar o R no final de 2017;
+
+* Além do R, estudo python e SQL;
+
+* Amo ver filmes, series e ler;
+
+* Fã de Star Wars.
+
+&lt;center&gt;
+
+&lt;img src="Julia.png" width="200" &gt;
+
+&lt;/center&gt;
+
+---
+# R Ladies Niterói
+
+* R-Ladies Niterói é uma organização mundial cuja missão é promover a diversidade de gênero na comunidade da linguagem R;
+
+* O primeiro encontro foi no  dia 30 de agosto de 2018;
+
+* Cada encontro é chamado de capítulo;
+
+* Já realizamos 7 capítulos até hoje;
+
+* Organizadoras: Gabriela Barros, Juliany Moura, Julia Ferreira, Luciane Alcoforado, Luiza Oliveira e  Maciela Rodrigues;
+
+* Nosso objetivo é termos 4 capítulos por semestre. Devido a pandemia do **Covid-19** todos os encontros de 2020 serão onlines.
+
+&lt;center&gt;
+
+&lt;img src="Rladiesnietroi.png" width="200" &gt;
+
+&lt;/center&gt;
+
+---
+
+# Código de Conduta
+
+"O R Ladies dedica-se a proporcionar uma experiência livre de assédio para todas as pessoas participantes, desta forma, não é tolerada nenhuma forma de assédio."
+
+"Se você for assediado por um membro / convidado / participante de / em algum evento R-Ladies, ou ainda observe que alguém esteja sob assédio ou tem outras dúvidas, entre em contato com os Membros Fundadores através de reporting [at] rladies [dot] org. As incidências locais serão tratadas juntamente com os organizadores locais. Se a pessoa que está assediando você estiver na equipe, ela não participará da resolução do seu incidente. Responderemos o mais rápido possível."
+
+[Código de Conduta - R Ladies Niterói](https://github.com/rladies/starter-kit/wiki/Code-of-Conduct#portuguese)
+
+&lt;center&gt;
+
+&lt;img src="Rladiesnietroi.png" width="200" &gt;
+
+&lt;/center&gt;
+
+---
+
+# Como será o capítulo?
+
+Como este é o nosso primeiro capítulo online, vamos testar algumas formas de ensino:
+
+- Encontro expositivo;
+
+- Pedimos que desliguem os microfones;
+
+- Apostila com teoria e exercícios sobre o **Dplyr** para auxiliar o estudo do pacote;
+
+- Usaremos o banco de dados: Star Wars.
+
+- Caso, tenha algum problema tentaremos ajudar durante a seção de dúvidas. Se não der tempo, pedimos que nos envie o problema durante a semana que vamos ajudar a resolver.
+
+- A cada função teremos uma seção para: **definição**, **exemplo**, **dúvidas ** e **exercício**.
+
+---
+
+# Pacote Dplyr
+
+O Dplyr foi desenvolvido pelo Hadley Wickham. O pacote veio para facilitar o uso de funcionalidades já existentes no R. Sendo assim, fazer as análises de dados de *data frame* se tornou mais simples e muitas vezes com poucas linhas de comando. 
+
+&lt;center&gt;
+
+&lt;img src="autor.png" width="600" &gt;
+
+&lt;/center&gt;
+
+---
+
+# Banco de Dados
+
+Como uma boa fã de Star Wars, eu escolhi um banco de dados que reúne as seguintes informações do universo Star Wars: **name**, **height(cm)**, **mass(kg)**, **hair_color**, **skin_color**, **eye_color**, **birth_year**, **sex**, **gender**, **homeworld**, **species**, **films**, **vehicles** e **starshipd**.
+
+### Código:
+
+
+```r
+library(dplyr)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
+starwars
+```
+
+```
+## # A tibble: 87 x 14
+##    name  height  mass hair_color skin_color eye_color birth_year sex   gender
+##    &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+##  1 Luke~    172    77 blond      fair       blue            19   male  mascu~
+##  2 C-3PO    167    75 &lt;NA&gt;       gold       yellow         112   none  mascu~
+##  3 R2-D2     96    32 &lt;NA&gt;       white, bl~ red             33   none  mascu~
+##  4 Dart~    202   136 none       white      yellow          41.9 male  mascu~
+##  5 Leia~    150    49 brown      light      brown           19   fema~ femin~
+##  6 Owen~    178   120 brown, gr~ light      blue            52   male  mascu~
+##  7 Beru~    165    75 brown      light      blue            47   fema~ femin~
+##  8 R5-D4     97    32 &lt;NA&gt;       white, red red             NA   none  mascu~
+##  9 Bigg~    183    84 black      light      brown           24   male  mascu~
+## 10 Obi-~    182    77 auburn, w~ fair       blue-gray       57   male  mascu~
+## # ... with 77 more rows, and 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;,
+## #   films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;
+```
+
+---
+# Banco de Dados
+
+Para começar nossa análise iremos verificar a classe do nosso banco de dados. Para isso faremos o seguinte comando:
+
+### Código
+
+
+```r
+class(starwars)
+```
+
+```
+## [1] "tbl_df"     "tbl"        "data.frame"
+```
+
+Podemos ver que o banco de dados é uma tibble. O que seria um *tibble*? Vamos usar a definição que o *Curso-R* deu para enteder melhor:
+
+*"Uma tibble nada mais é do que um data.frame, mas com um método de impressão mais adequado."* [Curso-R](https://material.curso-r.com/manip/)
+
+Agora, sabemos que nosso banco de dados é uma tibble e podemos usar o pacote Dyplyr para realizar nossas análises.
+
+---
+
+# Operador *Pipe* %&gt;% 
+
+Para que nossas linhas de comando fiquem mais organizada e realizar várias funções de uma só vez podemos usar o operador *Pipe*. E para entender o operador *Pipe* vamos ver como fazemos sem ele:
+
+### Código sem o operador:
+
+Queremos visualizar as 15 primeiras observações do banco de dados:
+
+
+```r
+head(starwars, 10)
+```
+
+```
+## # A tibble: 10 x 14
+##    name  height  mass hair_color skin_color eye_color birth_year sex   gender
+##    &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+##  1 Luke~    172    77 blond      fair       blue            19   male  mascu~
+##  2 C-3PO    167    75 &lt;NA&gt;       gold       yellow         112   none  mascu~
+##  3 R2-D2     96    32 &lt;NA&gt;       white, bl~ red             33   none  mascu~
+##  4 Dart~    202   136 none       white      yellow          41.9 male  mascu~
+##  5 Leia~    150    49 brown      light      brown           19   fema~ femin~
+##  6 Owen~    178   120 brown, gr~ light      blue            52   male  mascu~
+##  7 Beru~    165    75 brown      light      blue            47   fema~ femin~
+##  8 R5-D4     97    32 &lt;NA&gt;       white, red red             NA   none  mascu~
+##  9 Bigg~    183    84 black      light      brown           24   male  mascu~
+## 10 Obi-~    182    77 auburn, w~ fair       blue-gray       57   male  mascu~
+## # ... with 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+## #   vehicles &lt;list&gt;, starships &lt;list&gt;
+```
+
+---
+# Operador *Pipe* %&gt;% 
+
+Agora, precisamos compreender como o operador facilita muito a análise. Antes era preciso colocar o nome da base de dados como argumento da função. 
+Com o operador isso não é mais preciso porque o operador irá "acrescentar" este argumento automaticamente. Porém o *Pipe* faz muito mais que isso e vamos ver nos próximos slides.
+
+- O atalho é **Ctrl + Shift + M**.
+
+### Código com o operador:
+
+
+```r
+starwars %&gt;% 
+  head(10)
+```
+
+```
+## # A tibble: 10 x 14
+##    name  height  mass hair_color skin_color eye_color birth_year sex   gender
+##    &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+##  1 Luke~    172    77 blond      fair       blue            19   male  mascu~
+##  2 C-3PO    167    75 &lt;NA&gt;       gold       yellow         112   none  mascu~
+##  3 R2-D2     96    32 &lt;NA&gt;       white, bl~ red             33   none  mascu~
+##  4 Dart~    202   136 none       white      yellow          41.9 male  mascu~
+##  5 Leia~    150    49 brown      light      brown           19   fema~ femin~
+##  6 Owen~    178   120 brown, gr~ light      blue            52   male  mascu~
+##  7 Beru~    165    75 brown      light      blue            47   fema~ femin~
+##  8 R5-D4     97    32 &lt;NA&gt;       white, red red             NA   none  mascu~
+##  9 Bigg~    183    84 black      light      brown           24   male  mascu~
+## 10 Obi-~    182    77 auburn, w~ fair       blue-gray       57   male  mascu~
+## # ... with 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+## #   vehicles &lt;list&gt;, starships &lt;list&gt;
+```
+
+---
+
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+
+# Função: select()
+
+A primeira função que vamos estudar é o *select()*. Esta função irá *selecionar* as colunas do banco de dados que você colocou como argumento. Vejamos o exemplo a seguir:
+
+### Código
+
+
+```r
+starwars %&gt;% 
+  select(name, species, homeworld)
+```
+
+```
+## # A tibble: 87 x 3
+##    name               species homeworld
+##    &lt;chr&gt;              &lt;chr&gt;   &lt;chr&gt;    
+##  1 Luke Skywalker     Human   Tatooine 
+##  2 C-3PO              Droid   Tatooine 
+##  3 R2-D2              Droid   Naboo    
+##  4 Darth Vader        Human   Tatooine 
+##  5 Leia Organa        Human   Alderaan 
+##  6 Owen Lars          Human   Tatooine 
+##  7 Beru Whitesun lars Human   Tatooine 
+##  8 R5-D4              Droid   Tatooine 
+##  9 Biggs Darklighter  Human   Tatooine 
+## 10 Obi-Wan Kenobi     Human   Stewjon  
+## # ... with 77 more rows
+```
+
+---
+
+# Função: select()
+
+Na função *select()*, podemos usar outra função que é *everything()* que irá nos ajudar a organizar as colunas.
+
+### Código - Organizando as colunas
+
+
+```r
+starwars %&gt;% 
+  select(name, species, gender, everything())
+```
+
+```
+## # A tibble: 87 x 14
+##    name  species gender height  mass hair_color skin_color eye_color birth_year
+##    &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;
+##  1 Luke~ Human   mascu~    172    77 blond      fair       blue            19  
+##  2 C-3PO Droid   mascu~    167    75 &lt;NA&gt;       gold       yellow         112  
+##  3 R2-D2 Droid   mascu~     96    32 &lt;NA&gt;       white, bl~ red             33  
+##  4 Dart~ Human   mascu~    202   136 none       white      yellow          41.9
+##  5 Leia~ Human   femin~    150    49 brown      light      brown           19  
+##  6 Owen~ Human   mascu~    178   120 brown, gr~ light      blue            52  
+##  7 Beru~ Human   femin~    165    75 brown      light      blue            47  
+##  8 R5-D4 Droid   mascu~     97    32 &lt;NA&gt;       white, red red             NA  
+##  9 Bigg~ Human   mascu~    183    84 black      light      brown           24  
+## 10 Obi-~ Human   mascu~    182    77 auburn, w~ fair       blue-gray       57  
+## # ... with 77 more rows, and 5 more variables: sex &lt;chr&gt;, homeworld &lt;chr&gt;,
+## #   films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;
+```
+
+---
+
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+
+# Exercício 1: select()
+
+Selecione as colunas: **name**, **hair_color** e **eye_color**.
+
+&lt;center&gt;
+
+&lt;img src="figura03.png" width="700" &gt;
+
+&lt;/center&gt;
+
+---
+# Exercício 1: select() - Resolução
+
+- Selecione as colunas: **name**, **hair_color** e **eye_color**:
+
+### Código
+
+
+```r
+starwars %&gt;% 
+  select(name, hair_color, eye_color)
+```
+
+```
+## # A tibble: 87 x 3
+##    name               hair_color    eye_color
+##    &lt;chr&gt;              &lt;chr&gt;         &lt;chr&gt;    
+##  1 Luke Skywalker     blond         blue     
+##  2 C-3PO              &lt;NA&gt;          yellow   
+##  3 R2-D2              &lt;NA&gt;          red      
+##  4 Darth Vader        none          yellow   
+##  5 Leia Organa        brown         brown    
+##  6 Owen Lars          brown, grey   blue     
+##  7 Beru Whitesun lars brown         blue     
+##  8 R5-D4              &lt;NA&gt;          red      
+##  9 Biggs Darklighter  black         brown    
+## 10 Obi-Wan Kenobi     auburn, white blue-gray
+## # ... with 77 more rows
+```
+
+---
+
+# Função: filter()
+
+Sem dúvidas a função *filter()* é uma das mais importantes deste pacote. Usamos para filtrar as linhas de um banco de dados em relação a algum critério. Vamos ver os seguintes exemplos:
+
+### Código:
+
+
+```r
+starwars %&gt;% 
+  filter(mass &gt; 50)
+```
+
+```
+## # A tibble: 46 x 14
+##    name  height  mass hair_color skin_color eye_color birth_year sex   gender
+##    &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+##  1 Luke~    172    77 blond      fair       blue            19   male  mascu~
+##  2 C-3PO    167    75 &lt;NA&gt;       gold       yellow         112   none  mascu~
+##  3 Dart~    202   136 none       white      yellow          41.9 male  mascu~
+##  4 Owen~    178   120 brown, gr~ light      blue            52   male  mascu~
+##  5 Beru~    165    75 brown      light      blue            47   fema~ femin~
+##  6 Bigg~    183    84 black      light      brown           24   male  mascu~
+##  7 Obi-~    182    77 auburn, w~ fair       blue-gray       57   male  mascu~
+##  8 Anak~    188    84 blond      fair       blue            41.9 male  mascu~
+##  9 Chew~    228   112 brown      unknown    blue           200   male  mascu~
+## 10 Han ~    180    80 brown      fair       brown           29   male  mascu~
+## # ... with 36 more rows, and 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;,
+## #   films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;
+```
+
+---
+
+# Função: filter()
+
+### Código:
+
+
+```r
+starwars %&gt;% 
+  filter(mass &lt; 50)
+```
+
+```
+## # A tibble: 11 x 14
+##    name  height  mass hair_color skin_color eye_color birth_year sex   gender
+##    &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+##  1 R2-D2     96    32 &lt;NA&gt;       white, bl~ red               33 none  mascu~
+##  2 Leia~    150    49 brown      light      brown             19 fema~ femin~
+##  3 R5-D4     97    32 &lt;NA&gt;       white, red red               NA none  mascu~
+##  4 Yoda      66    17 white      green      brown            896 male  mascu~
+##  5 Wick~     88    20 brown      brown      brown              8 male  mascu~
+##  6 Sebu~    112    40 none       grey, red  orange            NA male  mascu~
+##  7 Dud ~     94    45 none       blue, grey yellow            NA male  mascu~
+##  8 Ratt~     79    15 none       grey, blue unknown           NA male  mascu~
+##  9 Wat ~    193    48 none       green, gr~ unknown           NA male  mascu~
+## 10 Sly ~    178    48 none       pale       white             NA &lt;NA&gt;  &lt;NA&gt;  
+## 11 Padm~    165    45 brown      light      brown             46 fema~ femin~
+## # ... with 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+## #   vehicles &lt;list&gt;, starships &lt;list&gt;
+```
+
+---
+
+# Função: filter()
+
+### Código:
+
+
+```r
+starwars %&gt;% 
+  filter(mass &gt;= 50 &amp; mass &lt;= 100)
+```
+
+```
+## # A tibble: 38 x 14
+##    name  height  mass hair_color skin_color eye_color birth_year sex   gender
+##    &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+##  1 Luke~    172    77 blond      fair       blue            19   male  mascu~
+##  2 C-3PO    167    75 &lt;NA&gt;       gold       yellow         112   none  mascu~
+##  3 Beru~    165    75 brown      light      blue            47   fema~ femin~
+##  4 Bigg~    183    84 black      light      brown           24   male  mascu~
+##  5 Obi-~    182    77 auburn, w~ fair       blue-gray       57   male  mascu~
+##  6 Anak~    188    84 blond      fair       blue            41.9 male  mascu~
+##  7 Han ~    180    80 brown      fair       brown           29   male  mascu~
+##  8 Gree~    173    74 &lt;NA&gt;       green      black           44   male  mascu~
+##  9 Wedg~    170    77 brown      fair       hazel           21   male  mascu~
+## 10 Palp~    170    75 grey       pale       yellow          82   male  mascu~
+## # ... with 28 more rows, and 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;,
+## #   films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;
+```
+
+---
+
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+# Exercício 2: filter()
+
+- Filtre as linhas que a **mass** é maior ou igual 203.
+
+&lt;center&gt;
+
+&lt;img src="figura03.png" width="700" &gt;
+
+&lt;/center&gt;
+
+---
+
+# Exercício 2: filter() - Resolução
+
+- Filtre as linhas que a **mass** é maior ou igual 203:
+
+### Código
+
+
+```r
+starwars %&gt;% 
+  filter(mass &gt;= 203)
+```
+
+```
+## # A tibble: 1 x 14
+##   name  height  mass hair_color skin_color eye_color birth_year sex   gender
+##   &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+## 1 Jabb~    175  1358 &lt;NA&gt;       green-tan~ orange           600 herm~ mascu~
+## # ... with 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+## #   vehicles &lt;list&gt;, starships &lt;list&gt;
+```
+
+---
+
+# Função: mutate()
+
+A função *mutate()* irá adicionar uma nova coluna ou mais no final da sua base de dados. A função possibilita a realização de cáculos e os seus resultados irão ocupar as linhas de nova coluna.
+
+
+```r
+data &lt;- starwars %&gt;% 
+  mutate(heightM = height / 100)
+
+data
+```
+
+```
+## # A tibble: 87 x 15
+##    name  height  mass hair_color skin_color eye_color birth_year sex   gender
+##    &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+##  1 Luke~    172    77 blond      fair       blue            19   male  mascu~
+##  2 C-3PO    167    75 &lt;NA&gt;       gold       yellow         112   none  mascu~
+##  3 R2-D2     96    32 &lt;NA&gt;       white, bl~ red             33   none  mascu~
+##  4 Dart~    202   136 none       white      yellow          41.9 male  mascu~
+##  5 Leia~    150    49 brown      light      brown           19   fema~ femin~
+##  6 Owen~    178   120 brown, gr~ light      blue            52   male  mascu~
+##  7 Beru~    165    75 brown      light      blue            47   fema~ femin~
+##  8 R5-D4     97    32 &lt;NA&gt;       white, red red             NA   none  mascu~
+##  9 Bigg~    183    84 black      light      brown           24   male  mascu~
+## 10 Obi-~    182    77 auburn, w~ fair       blue-gray       57   male  mascu~
+## # ... with 77 more rows, and 6 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;,
+## #   films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;, heightM &lt;dbl&gt;
+```
+---
+# Função: mutate()
+
+Agora, temos a coluna *heightM* com a média das alturas dos personagens. Podemos ver o resultado do mutante a seguir:
+
+
+```r
+data$heightM %&gt;% 
+  head(87)
+```
+
+```
+##  [1] 1.72 1.67 0.96 2.02 1.50 1.78 1.65 0.97 1.83 1.82 1.88 1.80 2.28 1.80 1.73
+## [16] 1.75 1.70 1.80 0.66 1.70 1.83 2.00 1.90 1.77 1.75 1.80 1.50   NA 0.88 1.60
+## [31] 1.93 1.91 1.70 1.96 2.24 2.06 1.83 1.37 1.12 1.83 1.63 1.75 1.80 1.78 0.94
+## [46] 1.22 1.63 1.88 1.98 1.96 1.71 1.84 1.88 2.64 1.88 1.96 1.85 1.57 1.83 1.83
+## [61] 1.70 1.66 1.65 1.93 1.91 1.83 1.68 1.98 2.29 2.13 1.67 0.79 0.96 1.93 1.91
+## [76] 1.78 2.16 2.34 1.88 1.78 2.06   NA   NA   NA   NA   NA 1.65
+```
+
+---
+
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+
+# Exercício 3: mutate()
+
+- Crie uma coluna com o calculo de IMC.
+
+                                     Fórmula: 
+
+                               IMC = Mass/(heightM**2)
+                               
+&lt;center&gt;
+
+&lt;img src="figura03.png" width="700" &gt;
+
+&lt;/center&gt;
+
+---
+
+# Exercício 3: mutate() - Resolução
+
+- Crie uma coluna com o calculo de IMC:
+
+### Código
+
+
+```r
+data %&gt;% 
+  mutate(imc = mass/(heightM**2)) %&gt;% 
+  select(name, imc)
+```
+
+```
+## # A tibble: 87 x 2
+##    name                 imc
+##    &lt;chr&gt;              &lt;dbl&gt;
+##  1 Luke Skywalker      26.0
+##  2 C-3PO               26.9
+##  3 R2-D2               34.7
+##  4 Darth Vader         33.3
+##  5 Leia Organa         21.8
+##  6 Owen Lars           37.9
+##  7 Beru Whitesun lars  27.5
+##  8 R5-D4               34.0
+##  9 Biggs Darklighter   25.1
+## 10 Obi-Wan Kenobi      23.2
+## # ... with 77 more rows
+```
+
+---
+
+# Função: arrange()
+
+A função arrange() irá reoordenar as linhas da base de dados conforme a variável escolhida. Podemos reoordenar de forma crescente e decrescente. Para fazer crescente basta usar a função *arrange()* e para fazer decrescente basta fazer *arrange(desc())*.
+
+## Código - Ordem crescente
+
+```r
+starwars %&gt;% 
+  arrange(height)
+```
+
+```
+## # A tibble: 87 x 14
+##    name  height  mass hair_color skin_color eye_color birth_year sex   gender
+##    &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+##  1 Yoda      66    17 white      green      brown            896 male  mascu~
+##  2 Ratt~     79    15 none       grey, blue unknown           NA male  mascu~
+##  3 Wick~     88    20 brown      brown      brown              8 male  mascu~
+##  4 Dud ~     94    45 none       blue, grey yellow            NA male  mascu~
+##  5 R2-D2     96    32 &lt;NA&gt;       white, bl~ red               33 none  mascu~
+##  6 R4-P~     96    NA none       silver, r~ red, blue         NA none  femin~
+##  7 R5-D4     97    32 &lt;NA&gt;       white, red red               NA none  mascu~
+##  8 Sebu~    112    40 none       grey, red  orange            NA male  mascu~
+##  9 Gasg~    122    NA none       white, bl~ black             NA male  mascu~
+## 10 Watto    137    NA black      blue, grey yellow            NA male  mascu~
+## # ... with 77 more rows, and 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;,
+## #   films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;
+```
+
+---
+
+# Função: arrange()
+
+## Código - Ordem decrescente
+
+
+```r
+starwars %&gt;% 
+  arrange(desc(height))
+```
+
+```
+## # A tibble: 87 x 14
+##    name  height  mass hair_color skin_color eye_color birth_year sex   gender
+##    &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+##  1 Yara~    264    NA none       white      yellow          NA   male  mascu~
+##  2 Tarf~    234   136 brown      brown      blue            NA   male  mascu~
+##  3 Lama~    229    88 none       grey       black           NA   male  mascu~
+##  4 Chew~    228   112 brown      unknown    blue           200   male  mascu~
+##  5 Roos~    224    82 none       grey       orange          NA   male  mascu~
+##  6 Grie~    216   159 none       brown, wh~ green, y~       NA   male  mascu~
+##  7 Taun~    213    NA none       grey       black           NA   fema~ femin~
+##  8 Rugo~    206    NA none       green      orange          NA   male  mascu~
+##  9 Tion~    206    80 none       grey       black           NA   male  mascu~
+## 10 Dart~    202   136 none       white      yellow          41.9 male  mascu~
+## # ... with 77 more rows, and 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;,
+## #   films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;
+```
+
+---
+
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+
+# Exercício 4: arrange()
+
+- Coloque a coluna **mass** em ordem decrescente.
+
+&lt;center&gt;
+
+&lt;img src="figura03.png" width="700" &gt;
+
+&lt;/center&gt;
+
+---
+# Exercício 4: arrange() - Resolução
+
+- Coloque a coluna **mass** em ordem decrescente.
+
+## Código:
+
+
+```r
+starwars %&gt;% 
+  arrange(desc(mass))
+```
+
+```
+## # A tibble: 87 x 14
+##    name  height  mass hair_color skin_color eye_color birth_year sex   gender
+##    &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+##  1 Jabb~    175  1358 &lt;NA&gt;       green-tan~ orange         600   herm~ mascu~
+##  2 Grie~    216   159 none       brown, wh~ green, y~       NA   male  mascu~
+##  3 IG-88    200   140 none       metal      red             15   none  mascu~
+##  4 Dart~    202   136 none       white      yellow          41.9 male  mascu~
+##  5 Tarf~    234   136 brown      brown      blue            NA   male  mascu~
+##  6 Owen~    178   120 brown, gr~ light      blue            52   male  mascu~
+##  7 Bossk    190   113 none       green      red             53   male  mascu~
+##  8 Chew~    228   112 brown      unknown    blue           200   male  mascu~
+##  9 Jek ~    180   110 brown      fair       blue            NA   male  mascu~
+## 10 Dext~    198   102 none       brown      yellow          NA   male  mascu~
+## # ... with 77 more rows, and 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;,
+## #   films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;
+```
+
+---
+
+# Função: summarise()
+
+Esta função irá criar uma ou mais medidas de resumos da variável escolhida. Para entender melhor vamos fazer um exemplo:
+
+
+```r
+starwars %&gt;% 
+  summarise(height.mean = mean(height, na.rm = T))
+```
+
+```
+## # A tibble: 1 x 1
+##   height.mean
+##         &lt;dbl&gt;
+## 1        174.
+```
+
+---
+
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+
+# Exercício 5: summarise()
+
+- Qual a média da variável *mass* ?
+
+&lt;center&gt;
+
+&lt;img src="figura03.png" width="700" &gt;
+
+&lt;/center&gt;
+
+---
+
+# Exercício 5: summarise() - Resolução
+
+
+```r
+starwars %&gt;% 
+  summarise(mass.mean = mean(mass, na.rm = T))
+```
+
+```
+## # A tibble: 1 x 1
+##   mass.mean
+##       &lt;dbl&gt;
+## 1      97.3
+```
+
+---
+
+# Função: group_by()
+
+Por fim, temos a função *group_by()* que irá agrupar o banco de dados em relação a uma variável. Neste exemplo iremos usar em conjunto com outras funções.
+
+
+```r
+starwars %&gt;%
+  group_by(species) %&gt;%
+  summarise(
+    n = n(), # fornece o tamanho atual do grupo
+    massmean = mean(mass, na.rm = TRUE)
+  ) %&gt;%
+  filter(
+    n &gt; 1,
+    massmean &gt; 50
+  )
+```
+
+```
+## `summarise()` ungrouping output (override with `.groups` argument)
+```
+
+```
+## # A tibble: 8 x 3
+##   species      n massmean
+##   &lt;chr&gt;    &lt;int&gt;    &lt;dbl&gt;
+## 1 Droid        6     69.8
+## 2 Gungan       3     74  
+## 3 Human       35     82.8
+## 4 Kaminoan     2     88  
+## 5 Mirialan     2     53.1
+## 6 Twi'lek      2     55  
+## 7 Wookiee      2    124  
+## 8 Zabrak       2     80
+```
+
+
+---
+
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+
+# Exercício 6: group_by()
+
+- Agrupe por **species** e faça a média da altura.
+
+&lt;center&gt;
+
+&lt;img src="figura03.png" width="700" &gt;
+
+&lt;/center&gt;
+
+---
+
+# Exercício 6: group_by() - Resolução
+
+
+```r
+starwars %&gt;%
+  group_by(species) %&gt;%
+  summarise(
+    n = n(),
+    heightmean = mean(height, na.rm = TRUE)
+  ) %&gt;%
+  filter(
+    n &gt; 1,
+    heightmean &lt; 80
+  )
+```
+
+```
+## `summarise()` ungrouping output (override with `.groups` argument)
+```
+
+```
+## # A tibble: 0 x 3
+## # ... with 3 variables: species &lt;chr&gt;, n &lt;int&gt;, heightmean &lt;dbl&gt;
+```
+
+---
+
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+
+# Contato
+
+Para acessar basta clicar no nome:
+
+- [Facebook]("https://www.facebook.com/rladiesniteroi"): R Ladies Niterói;
+
+- [Twitter]("https://twitter.com/rladiesniteroi"): @rladiesniteroi;
+
+- [Instagram]("https://www.instagram.com/rladies.niteroi/"): @rladies.niteroi ;
+
+- [GitHub]("https://github.com/RLadiesNiteroi"): R Ladies Niterói ;
+
+- [MeetUp]("https://www.meetup.com/pt-BR/rladies-niteroi/"): R Ladies Niterói;
+
+- [Julia Hellen - GitHub]("https://github.com/JuliaHellenFerreira"): Julia Hellen Ferreira.
+
+&lt;center&gt;
+
+&lt;img src="Rladiesnietroi.png" width="200" &gt;
+
+&lt;/center&gt;
+
+---
+
+# Encerramento
+
+- Fonte: 
+
+*R para Data Science* -&gt; Hadley Wickham &amp; Garrett Gorlemund;
+
+*Professora: Karina Yaginuma* -&gt; Universidade Federal Fluminense;
+
+*Estatística é com R* -&gt; Canal do YouTube
+
+                         Agradecemos a participação de todos!
+
+&lt;center&gt;
+
+&lt;img src="Rladiesnietroi.png" width="200" &gt;
+
+&lt;/center&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

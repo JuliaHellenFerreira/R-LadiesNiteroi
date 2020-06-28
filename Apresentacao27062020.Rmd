@@ -221,7 +221,7 @@ Selecione as colunas: **name**, **hair_color** e **eye_color**.
 
 ```{r}
 starwars %>% 
-  select(name, hair_color, skin_color, eye_color)
+  select(name, hair_color, eye_color)
 ```
 
 ---
@@ -449,11 +449,11 @@ starwars %>%
   group_by(species) %>%
   summarise(
     n = n(), # fornece o tamanho atual do grupo
-    mass = mean(mass, na.rm = TRUE)
+    massmean = mean(mass, na.rm = TRUE)
   ) %>%
   filter(
     n > 1,
-    mass > 50
+    massmean > 50
   )
 ```
 
@@ -485,11 +485,11 @@ starwars %>%
   group_by(species) %>%
   summarise(
     n = n(),
-    heightM = mean(height, na.rm = TRUE)
+    heightmean = mean(height, na.rm = TRUE)
   ) %>%
   filter(
     n > 1,
-    heightM < 1.50
+    heightmean < 80
   )
 ```
 
@@ -498,6 +498,30 @@ starwars %>%
 class: inverse, center, middle
 
 # Dúvidas
+
+---
+
+# Contato
+
+Para acessar basta clicar no nome:
+
+- [Facebook]("https://www.facebook.com/rladiesniteroi"): R Ladies Niterói;
+
+- [Twitter]("https://twitter.com/rladiesniteroi"): @rladiesniteroi;
+
+- [Instagram]("https://www.instagram.com/rladies.niteroi/"): @rladies.niteroi ;
+
+- [GitHub]("https://github.com/RLadiesNiteroi"): R Ladies Niterói ;
+
+- [MeetUp]("https://www.meetup.com/pt-BR/rladies-niteroi/"): R Ladies Niterói;
+
+- [Julia Hellen - GitHub]("https://github.com/JuliaHellenFerreira"): Julia Hellen Ferreira.
+
+<center>
+
+<img src="Rladiesnietroi.png" width="200" >
+
+</center>
 
 ---
 
