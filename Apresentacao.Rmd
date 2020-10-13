@@ -1,0 +1,516 @@
+---
+title: "R-Ladies Niterói"
+subtitle: "Conhecendo o pacote Dplyr"
+author: "Julia Hellen Ferreira"
+institute: "Academica em Estatística "
+date: "13 de outubro de 2020"
+output:
+  xaringan::moon_reader:
+    css: [kunoichi, chocolate-fonts, custom.css]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+class: middle
+
+# R Ladies Niterói
+  
+* R-Ladies Niterói é uma organização mundial cuja missão é promover a diversidade de gênero na comunidade da linguagem R;
+
+* O primeiro encontro foi no  dia 30 de agosto de 2018;
+
+* Cada encontro é chamado de capítulo;
+
+* Já realizamos 9 capítulos até hoje;
+
+* Marcamos presença no LatinR 2020 hospedando um workshop;
+
+* Organizadoras: Gabriela Barros, Juliany Moura, Julia Ferreira, Letícia Felix, Luciane Alcoforado, Luiza Oliveira e  Maciela Rodrigues;
+
+* Nosso objetivo é termos 4 capítulos por semestre. Devido a pandemia do **Covid-19** todos os encontros de 2020 serão onlines.
+
+---
+
+class: middle
+
+### Julia Hellen Ferreira
+
+- Academica em Estatística na Universidade Federal Fluminense (UFF);
+
+- [Estagiária em Tecnologia da Informação pelo Instituto de Tecnologia e Sociedade do Rio (ITS)](https://itsrio.org/pt/institucional/);
+
+- Assitente de pesquisa da Universidade de Stanford;
+
+- Co-organizadora: [R-Ladies Niterói](https://www.meetup.com/pt-BR/rladies-niteroi/),  [LatinR](https://latin-r.com/pt)
+
+### Contato:
+
+- [GitHub](https://github.com/JuliaHellenFerreira)
+
+- [LinkedIn](https://www.linkedin.com/in/julia-hellen-ferreira-6a23b6140/)
+
+```{r message=FALSE, warning=FALSE, , out.width="25%", paged.print=FALSE, echo=FALSE, fig.align = 'center'}
+knitr::include_graphics("julia.jpeg")
+```
+
+---
+
+class: middle
+  
+# Código de Conduta
+  
+"O R Ladies dedica-se a proporcionar uma experiência livre de assédio para todas as pessoas participantes, desta forma, não é tolerada nenhuma forma de assédio."
+
+"Se você for assediado por um membro / convidado / participante de / em algum evento R-Ladies, ou ainda observe que alguém esteja sob assédio ou tem outras dúvidas, entre em contato com os Membros Fundadores através de reporting [at] rladies [dot] org. As incidências locais serão tratadas juntamente com os organizadores locais. Se a pessoa que está assediando você estiver na equipe, ela não participará da resolução do seu incidente. Responderemos o mais rápido possível."
+
+[Código de Conduta - R Ladies Niterói](https://github.com/rladies/starter-kit/wiki/Code-of-Conduct#portuguese)
+
+---
+class: middle
+
+# Como será o capítulo?
+
+Como este é o nosso primeiro capítulo online, vamos testar algumas formas de ensino:
+  
+- Encontro expositivo;
+
+- Pedimos que desliguem os microfones;
+
+- Apostila com teoria e exercícios sobre o **Dplyr** para auxiliar o estudo do pacote;
+
+- Usaremos o banco de dados: Star Wars.
+
+- Caso, tenha algum problema tentaremos ajudar durante a seção de dúvidas. Se não der tempo, pedimos que nos envie o problema durante a semana que vamos ajudar a resolver.
+
+- A cada função teremos uma seção para: **definição**, **exemplo**, **dúvidas ** e **exercício**.
+
+---
+class: middle
+
+# Pacote Dplyr
+
+O Dplyr foi desenvolvido pelo Hadley Wickham. O pacote veio para facilitar o uso de funcionalidades já existentes no R. Sendo assim, fazer as análises de dados de *data frame* se tornou mais simples e muitas vezes com poucas linhas de comando. 
+
+---
+class: middle
+
+# Banco de Dados
+
+Como uma boa fã de Star Wars, eu escolhi um banco de dados que reúne as seguintes informações do universo Star Wars: **name**, **height(cm)**, **mass(kg)**, **hair_color**, **skin_color**, **eye_color**, **birth_year**, **sex**, **gender**, **homeworld**, **species**, **films**, **vehicles** e **starshipd**.
+
+### Código:
+
+```{r message=FALSE, warning=FALSE}
+library(dplyr)
+starwars
+```
+
+---
+class: middle
+
+# Banco de Dados
+
+Para começar nossa análise iremos verificar a classe do nosso banco de dados. Para isso faremos o seguinte comando:
+  
+### Código
+  
+```{r message=FALSE, warning=FALSE}
+class(starwars)
+```
+
+Podemos ver que o banco de dados é uma tibble. O que seria um *tibble*? Vamos usar a definição que o *Curso-R* deu para enteder melhor:
+  
+*"Uma tibble nada mais é do que um data.frame, mas com um método de impressão mais adequado."* [Curso-R](https://material.curso-r.com/manip/)
+
+Agora, sabemos que nosso banco de dados é uma tibble e podemos usar o pacote Dyplyr para realizar nossas análises.
+
+---
+class: middle
+
+# Operador *Pipe* %>% 
+
+Para que nossas linhas de comando fiquem mais organizada e realizar várias funções de uma só vez podemos usar o operador *Pipe*. E para entender o operador *Pipe* vamos ver como fazemos sem ele:
+  
+### Código sem o operador:
+  
+Queremos visualizar as 10 primeiras observações do banco de dados:
+  
+```{r message=FALSE, warning=FALSE}
+head(starwars, 10)
+```
+
+---
+class: middle
+
+# Operador *Pipe* %>% 
+
+Agora, precisamos compreender como o operador facilita muito a análise. Antes era preciso colocar o nome da base de dados como argumento da função. 
+Com o operador isso não é mais preciso porque o operador irá "acrescentar" este argumento automaticamente. Porém o *Pipe* faz muito mais que isso e vamos ver nos próximos slides.
+
+- O atalho é **Ctrl + Shift + M**.
+
+### Código com o operador:
+
+```{r message=FALSE, warning=FALSE}
+starwars %>% 
+  head(10)
+```
+
+---
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+class: middle
+
+# Função: select()
+
+A primeira função que vamos estudar é o *select()*. Esta função irá *selecionar* as colunas do banco de dados que você colocou como argumento. Vejamos o exemplo a seguir:
+  
+### Código
+  
+```{r message=FALSE, warning=FALSE}
+starwars %>% 
+  select(name, species, homeworld)
+```
+
+---
+class: middle
+
+# Função: select()
+
+Na função *select()*, podemos usar outra função que é *everything()* que irá nos ajudar a organizar as colunas.
+
+### Código - Organizando as colunas
+
+```{r message=FALSE, warning=FALSE}
+starwars %>% 
+  select(name, species, gender, everything())
+```
+
+---
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+class: middle
+
+# Exercício 1: select()
+
+Selecione as colunas: **name**, **hair_color** e **eye_color**.
+
+---
+class: middle
+
+# Exercício 1: select() - Resolução
+
+- Selecione as colunas: **name**, **hair_color** e **eye_color**:
+  
+### Código
+  
+```{r message=FALSE, warning=FALSE}
+starwars %>% 
+  select(name, hair_color, eye_color)
+```
+
+---
+class: middle
+
+# Função: filter()
+
+Sem dúvidas a função *filter()* é uma das mais importantes deste pacote. Usamos para filtrar as linhas de um banco de dados em relação a algum critério. Vamos ver os seguintes exemplos:
+  
+### Código:
+  
+```{r message=FALSE, warning=FALSE}
+starwars %>% 
+  filter(mass > 50)
+```
+
+---
+class: middle
+
+# Função: filter()
+
+### Código:
+
+```{r message=FALSE, warning=FALSE}
+starwars %>% 
+  filter(mass < 50)
+```
+
+---
+class: middle
+
+# Função: filter()
+
+### Código:
+
+```{r message=FALSE, warning=FALSE}
+starwars %>% 
+  filter(mass >= 50 & mass <= 100)
+```
+
+---
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+class: middle
+
+# Exercício 2: filter()
+
+- Filtre as linhas que a **mass** é maior ou igual 203.
+
+---
+class: middle
+
+# Exercício 2: filter() - Resolução
+
+- Filtre as linhas que a **mass** é maior ou igual 203:
+  
+### Código
+  
+```{r message=FALSE, warning=FALSE}
+starwars %>% 
+  filter(mass >= 203)
+```
+
+---
+class: middle
+
+# Função: mutate()
+
+A função *mutate()* irá adicionar uma nova coluna ou mais no final da sua base de dados. A função possibilita a realização de cáculos e os seus resultados irão ocupar as linhas de nova coluna.
+
+```{r message=FALSE, warning=FALSE}
+data <- starwars %>% 
+  mutate(heightM = height / 100)
+data
+```
+
+---
+class: middle
+
+# Função: mutate()
+
+Agora, temos a coluna *heightM* com a média das alturas dos personagens. Podemos ver o resultado do mutante a seguir:
+  
+```{r message=FALSE, warning=FALSE}
+data$heightM %>% 
+  head(87)
+```
+
+---
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+class: middle
+
+# Exercício 3: mutate()
+
+- Crie uma coluna com o calculo de IMC.
+
+Fórmula: 
+  
+  IMC = Mass/(heightM**2)
+
+---
+class: middle
+
+# Exercício 3: mutate() - Resolução
+
+- Crie uma coluna com o calculo de IMC:
+  
+### Código
+
+```{r message=FALSE, warning=FALSE}
+data %>% 
+  mutate(imc = mass/(heightM**2)) %>% 
+  select(name, imc)
+```
+
+---
+class: middle
+
+# Função: arrange()
+
+A função arrange() irá reoordenar as linhas da base de dados conforme a variável escolhida. Podemos reoordenar de forma crescente e decrescente. Para fazer crescente basta usar a função *arrange()* e para fazer decrescente basta fazer *arrange(desc())*.
+
+## Código - Ordem crescente
+```{r message=FALSE, warning=FALSE}
+starwars %>% 
+  arrange(height)
+```
+
+---
+class: middle
+
+# Função: arrange()
+
+## Código - Ordem decrescente
+
+```{r message=FALSE, warning=FALSE}
+starwars %>% 
+  arrange(desc(height))
+```
+
+---
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+class: middle
+
+# Exercício 4: arrange()
+
+- Coloque a coluna **mass** em ordem decrescente.
+
+---
+class: middle
+
+# Exercício 4: arrange() - Resolução
+
+- Coloque a coluna **mass** em ordem decrescente.
+
+## Código:
+
+```{r message=FALSE, warning=FALSE}
+starwars %>% 
+  arrange(desc(mass))
+```
+
+---
+class: middle
+
+# Função: summarise()
+
+Esta função irá criar uma ou mais medidas de resumos da variável escolhida. Para entender melhor vamos fazer um exemplo:
+
+```{r message=FALSE, warning=FALSE}
+starwars %>% 
+  summarise(height.mean = mean(height, na.rm = T))
+```
+
+---
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+class: middle
+
+# Exercício 5: summarise()
+
+- Qual a média da variável *mass* ?
+
+---
+class: middle
+
+# Exercício 5: summarise() - Resolução
+
+```{r message=FALSE, warning=FALSE}
+starwars %>% 
+  summarise(mass.mean = mean(mass, na.rm = T))
+```
+
+---
+class: middle
+
+# Função: group_by()
+
+Por fim, temos a função *group_by()* que irá agrupar o banco de dados em relação a uma variável. Neste exemplo iremos usar em conjunto com outras funções.
+
+```{r message=FALSE, warning=FALSE}
+starwars %>%
+  group_by(species) %>%
+  summarise(
+    n = n(), # fornece o tamanho atual do grupo
+    massmean = mean(mass, na.rm = TRUE)
+  ) %>%
+  filter(
+    n > 1,
+    massmean > 50
+  )
+```
+
+
+---
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+class: middle
+
+# Exercício 6: group_by()
+
+- Agrupe por **species** e faça a média da altura.
+
+  
+---
+class: middle
+
+# Exercício 6: group_by() - Resolução
+
+```{r message=FALSE, warning=FALSE}
+starwars %>%
+  group_by(species) %>%
+  summarise(
+    n = n(),
+    heightmean = mean(height, na.rm = TRUE)
+  ) %>%
+  filter(
+    n > 1,
+    heightmean < 80
+  )
+```
+
+---
+class: inverse, center, middle
+
+# Dúvidas
+
+---
+class: middle
+
+# Contato
+
+Para acessar basta clicar no nome:
+  
+- [Facebook]("https://www.facebook.com/rladiesniteroi"): R Ladies Niterói;
+
+- [Twitter]("https://twitter.com/rladiesniteroi"): @rladiesniteroi;
+
+- [Instagram]("https://www.instagram.com/rladies.niteroi/"): @rladies.niteroi ;
+
+- [GitHub]("https://github.com/RLadiesNiteroi"): R Ladies Niterói ;
+
+- [MeetUp]("https://www.meetup.com/pt-BR/rladies-niteroi/"): R Ladies Niterói;
+
+---
+class: middle
+
+# Encerramento
+
+- Fonte: 
+  
+*R para Data Science* -> Hadley Wickham & Garrett Gorlemund;
+
+*Professora: Karina Yaginuma* -> Universidade Federal Fluminense;
+
+*Estatística é com R* -> Canal do YouTube
+
+
+                  Agradecemos a participação de todos!
+  
+

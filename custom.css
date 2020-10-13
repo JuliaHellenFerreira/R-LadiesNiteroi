@@ -1,0 +1,41 @@
+.title-slide {
+    width: 60%;
+    text-align: left!important;
+    height: 100%;
+    display: table;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: rgb(59 13 60);
+    color: white;
+    padding: 0;
+    border-left-color: white;
+    border-left-style: solid;
+    border-left-width: 0.5em;
+}
+
+.remark-slide {
+    background-color: #140415;
+    background-image: var(--logo);
+    background-size: 10%;
+    background-position: left bottom;
+    background-repeat: no-repeat;
+}
+
+.title-slide {
+    width: 60%;
+    text-align: left!important;
+    height: 100%;
+    display: table;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: rgb(59 13 60);
+    color: #cbc5cc;
+    padding: 0;
+    border-left-color: white;
+    border-left-style: solid;
+    border-left-width: 0.5em;
+}
+
+
